@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-#This script prints "Best school 10 times "
+#This script prints "Best school 10 times 
 
-i=0 
+ count=0
 
-until [ $i -eq 11 ]
+while [ $count -eq 10 ]
 do
-echo "Best school"
-(( i++ ))
-done 
+  echo "Best School"
+  (( count++ ))
+done
