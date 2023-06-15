@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-#This script displays all running processes 
+#This script displays the list of running processes 
+
 ps -e -o user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,command --forest
+
