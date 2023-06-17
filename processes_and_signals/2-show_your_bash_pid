@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Display lines containing "bash" and extract the PID
-ps aux | grep bash | grep -v grep | awk '{print $2}'
+ps aux | grep bash | grep -v grep | awk '{print $2}' | head -n 1
 
