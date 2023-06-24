@@ -3,14 +3,14 @@
 #!/bin/bash
 
 current_pid=$$
-
 for pid in /proc/*/; do
     pid=${pid%/}
     pid=${pid##*/}
     if [[ -f "/proc/$pid/cmdline" ]]; then
         cmdline=$(tr '\0' ' ' < "/proc/$pid/cmdline")
-        if [[ "$cmdline" == */bin/bash* && "$pid" != "$current_pid" ]]; then
-            echo "$pid $cmdline"
+        if [[ "$cmdline" == *bash* && "$pid" != "$current_pid" ]]; then
+            exe_path=$(readlink -f "/proc/$pid/exe")
+            echo "$pid $exe_path"
         fi
     fi
 done
