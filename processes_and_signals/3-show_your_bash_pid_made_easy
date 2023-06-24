@@ -8,7 +8,7 @@ for pid in /proc/*/; do
     pid=${pid##*/}
     if [[ -f "/proc/$pid/cmdline" ]]; then
         cmdline=$(tr '\0' ' ' < "/proc/$pid/cmdline")
-        if [[ "$cmdline" == *bash* && $pid != $current_pid ]]; then
+        if [[ "$cmdline" == */bin/bash* && $pid != $current_pid ]]; then
             echo "$pid $cmdline"
         fi
     fi
