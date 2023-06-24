@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
-# Get the current script's PID
-
+#tis is for question threee
 current_pid=$$
 process_name=$(basename "$0")
 
-for pid in $(pgrep bash); do
-    if [[ $pid != $current_pid ]]; then
-        process_name=$(tr '\0' ' ' < "/proc/$pid/cmdline")
-        echo "$pid $process_name"
+for pid in /proc/*/; do
+    pid=${pid%/}
+    pid=${pid##*/}
+    if [[ -f "/proc/$pid/cmdline" ]]; then
+        cmdline=$(tr '\0' ' ' < "/proc/$pid/cmdline")
+        if [[ "$cmdline" == *bash* && $pid != $current_pid ]]; then
+            echo "$pid $cmdline"
+        fi
     fi
 done
 
