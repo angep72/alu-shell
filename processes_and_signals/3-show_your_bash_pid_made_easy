@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
-#tis is for question threee
+#tis is for question 
+#!/bin/bash
+
 current_pid=$$
-process_name=$(basename "$0")
 
 for pid in /proc/*/; do
     pid=${pid%/}
     pid=${pid##*/}
     if [[ -f "/proc/$pid/cmdline" ]]; then
         cmdline=$(tr '\0' ' ' < "/proc/$pid/cmdline")
-        if [[ "$cmdline" == */bin/bash* && $pid != $current_pid ]]; then
+        if [[ "$cmdline" == */bin/bash* && "$pid" != "$current_pid" ]]; then
             echo "$pid $cmdline"
         fi
     fi
 done
-
