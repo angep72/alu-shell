@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 #This script displays the list of running processes
-# Get the process information
 #!/bin/bash
 
 # Print the header
-printf "%-10s %-5s %-5s %-6s %-6s %-6s %-6s %-8s %-8s %s\n" "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "COMMAND"
+printf "%-10s %-8s\n" "USER" "START"
 
 # Get the process information
-process_info=$(ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start_time,command --sort=start_time)
+process_info=$(ps -eo user,start --sort=start_time)
 
 # Loop through each process
 while read -r line; do
-  # Print the process information
-  printf "%-10s %-5s %-5s %-6s %-6s %-6s %-6s %-8s %-8s %s\n" $line
+  # Print the user and start time
+  printf "%-10s %-8s\n" $line
 done <<< "$process_info"
 
