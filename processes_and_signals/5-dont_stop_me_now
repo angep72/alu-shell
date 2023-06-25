@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-#Thanks Lord 1for today 
-
+#This process terminate the process in onother window 
 # Start the 4-to_infinity_and_beyond process in the background
 ./4-to_infinity_and_beyond &
 
