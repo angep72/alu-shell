@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 #This script displays the list of running processes
 # Get the process information
-process_info=$(ps -eo user,lstart,command | grep "7-highlander" | grep -v grep)
+#!/bin/bash
 
-# Check if the process is running
-if [ -z "$process_info" ]; then
-  echo "Process is not running."
-else
-  # Extract the relevant information from the process info
-  user=$(echo "$process_info" | awk '{print $1}')
-  start_time=$(echo "$process_info" | awk '{print $2" "$3" "$4}')
-  command=$(echo "$process_info" | awk '{$1=$2=$3=""; print $0}')
+# Print the header
+printf "%-10s %-5s %-5s %-6s %-6s %-6s %-6s %-8s %-8s %s\n" "USER" "PID" "%CPU" "%MEM" "VSZ" "RSS" "TTY" "STAT" "START" "COMMAND"
 
+# Get the process information
+process_info=$(ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start_time,command --sort=start_time)
+
+# Loop through each process
+while read -r line; do
   # Print the process information
-  echo "USER STARTED COMMAND"
-  echo "$user $start_time $command"
-fi
+  printf "%-10s %-5s %-5s %-6s %-6s %-6s %-6s %-8s %-8s %s\n" $line
+done <<< "$process_info"
 
