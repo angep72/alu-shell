@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-#This process terminate the process in onother window 
-# Start the 4-to_infinity_and_beyond process in the background
-#!/bin/bash
-
-# Start the 4-to_infinity_and_beyond process in the background
-./4-to_infinity_and_beyond &
-
-# Store the PID of the process
+#This describes the termination 
+# Store the PID of the 4-to_infinity_and_beyond process
 PID=$(pgrep -f "4-to_infinity_and_beyond")
+
+# Start the 4-to_infinity_and_beyond process in the background if it's not already running
+if [ -z "$PID" ]; then
+    ./4-to_infinity_and_beyond &
+    PID=$!
+fi
 
 # Wait for a keypress to continue
 read -n 1 -s -r -p "Press any key to stop the process..."
@@ -16,4 +16,3 @@ read -n 1 -s -r -p "Press any key to stop the process..."
 kill $PID
 
 echo "Process terminated"
-
