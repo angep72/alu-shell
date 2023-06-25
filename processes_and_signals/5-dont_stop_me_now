@@ -16,7 +16,7 @@ fi
 read -n 1 -s -r -p "Press any key to stop the process..."
 
 # Send the SIGTERM signal to terminate the process
-kill $PID
+kill $PID > /dev/null 2>&1
 
 echo "Process terminated"
 
