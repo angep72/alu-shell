@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
+# Run the 4-to_infinity_and_beyond script
+
+
 # Run the 4-to_infinity_and_beyond script in the background
+./4-to_infinity_and_beyond &
+
 # Capture the process ID (PID) of the script
 PID=$!
 
 # Wait for user input to stop the process
-read -p "Press Enter to stop the process..."
+read -r -p "Press Enter to stop the process..."
 
 # Send a SIGTERM signal to the process
-kill $PID
+kill "$PID"
 
 echo "Terminated"
+
