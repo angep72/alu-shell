@@ -1,22 +1,15 @@
 #!/usr/bin/env bash
-#This describes the termination 
-# Store the PID of the 4-to_infinity_and_beyond process
+#we need to stop the previous process 
 #!/bin/bash
 
-# Store the PID of the 4-to_infinity_and_beyond process
-PID=$(pgrep -f "4-to_infinity_and_beyond")
+# Find the PID of the "4-to_infinity_and_beyond" process
+pid=$(pgrep -f "4-to_infinity_and_beyond")
 
-# Start the 4-to_infinity_and_beyond process in the background if it's not already running
-if [ -z "$PID" ]; then
-    ./4-to_infinity_and_beyond &
-    PID=$!
+if [ -n "$pid" ]; then
+    # Terminate the process
+    kill "$pid"
+    echo "Terminated"
+else
+    echo "Process not found"
 fi
-
-# Wait for a keypress to continue
-read -n 1 -s -r -p "Press any key to stop the process..."
-
-# Send the SIGTERM signal to terminate the process
-kill $PID > /dev/null 2>&1
-
-echo "Process terminated"
 
