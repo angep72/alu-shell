@@ -1,16 +1,4 @@
 #!/usr/bin/env bash
-#tis is for question 
-#!/bin/bash
+#this is the  Bash script that displays the PID, along with the process name, of processes whose name contain the word bash.
+pgrep -l bash
 
-current_pid=$$
-for pid in /proc/*/; do
-    pid=${pid%/}
-    pid=${pid##*/}
-    if [[ -f "/proc/$pid/cmdline" ]]; then
-        cmdline=$(tr '\0' ' ' < "/proc/$pid/cmdline")
-        if [[ "$cmdline" == *bash* && "$pid" != "$current_pid" ]]; then
-            exe_path=$(readlink -f "/proc/$pid/exe")
-            echo "$pid $exe_path"
-        fi
-    fi
-done
