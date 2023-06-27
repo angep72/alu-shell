@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
-#This script displays all processes from line 1 to line 50
-#!/bin/bash
-
-pstree -pal
-
-
+#This script displays all processes 
+ps auxf
