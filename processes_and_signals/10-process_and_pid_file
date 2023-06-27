@@ -5,20 +5,15 @@
 #displays Y U no love me ?! when receiving a SIGNT signals 
 #deletes the file /var/run/myscript.pid and terminates itself when receiving a SIGTQUIT or SIDTERM signal.
 
-terminator() 
-{
-	rm /var/ru/myscript.pid
-	exit
+function love() {
+    rm /var/run/myscript.pid
+    exit
 }
 
-echo "$$" > /var/run/myscript.pid
+trap "echo I hate the kill command;love" SIGTERM
+trap "echo Y U no love me?!;love" SIGINT
 
-while true 
-do
-	echo "To infinity and beyond"
-	sleep 2
-	trap 'echo "Y U no love me?!"' SIGINT
-	trap 'echo "I hate the kill command" && terminator' SIGTERM
-	trap 'terminator' SIGQUIT
-done 
-
+echo $$ >> /var/run/myscript.pid
+while true ; do
+    echo To infinity and beyond;
+done
