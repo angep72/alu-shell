@@ -1,6 +1,6 @@
-#!/usr/bin/env bash manage_my_process
-#this   in our case it will simply create a new process instead of saying that it is already started.
-
+#!/usr/bin/env bash
+#!/usr/bin/env bash
+#Managing the process
 if [[ "$#" == "1" ]]; then
  if [[ "$1" == "start" ]]; then
     ./manage_my_process &
