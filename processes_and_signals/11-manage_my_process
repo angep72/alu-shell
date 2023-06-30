@@ -1,23 +1,41 @@
 #!/usr/bin/env bash
-#manages the manage_process
-file=/var/run/my_process.pid
-if [ "$1" == "start" ];
-then
-    ./manage_my_process &
-    sudo bash -c "echo $! > $file"
-    echo "manage_my_process started"
-elif [ "$1" == "stop" ];
-then
-    pkill -f ./manage_my_process
-    sudo rm $file
-    echo "manage_my_process stopped"
-elif [ "$1" == "restart" ];
-then
-    pkill -f ./manage_my_process
-    sudo rm $file
-    ./manage_my_process &
-    sudo bash -c "echo $! > $file"
-    echo "manage_my_process restarted"
+# Bash script manages manage_my_process
+
+# Function to start the process
+start() {
+    ./manage_my_process &   # Run manage_my_process in the background
+    echo "$!" > /var/run/my_process.pid   # Save the process ID to the PID file
+    echo "manage_my_process started"   # Display a message indicating the process has started
+}
+
+# Function to stop the process
+stop() {
+    sudo rm -f /var/run/my_process.pid &   # Remove the PID file with sudo (if necessary)
+    sudo pkill -f manage_my_process &   # Kill the running instances of manage_my_process
+    echo "manage_my_process stopped"   # Display a message indicating the process has stopped
+}
+
+# Function to restart the process
+restart() {
+    sudo pkill manage_my_process &   # Kill the running instances of manage_my_process
+    rm /var/run/my_process.pid &   # Remove the PID file
+    ./manage_my_process &   # Start manage_my_process again
+    echo "$!" > /var/run/my_process.pid   # Save the new process ID to the PID file
+    echo "manage_my_process restarted"   # Display a message indicating the process has been restarted
+}
+
+# Check the number of command-line arguments
+if [ $# -lt 1 ] || [ $# -ge 2 ]; then
+    echo "Usage: manage_my_process {start|stop|restart}"   # Display a usage message if the number of arguments is incorrect
 else
-    echo "Usage: manage_my_process {start|stop|restart}"
+    case $1 in
+        "start")
+            start   # Call the start function
+            ;;
+        "stop")
+            stop    ;;
+        "restart")
+            restart  
+	    ;;
+    esac
 fi
