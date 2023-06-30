@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 #!/usr/bin/env bash
 #Managing the process
+#!/usr/bin/env bash
+#Manage
 if [[ "$#" == "1" ]]; then
  if [[ "$1" == "start" ]]; then
     ./manage_my_process &
